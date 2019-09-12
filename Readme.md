@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Павел Власов](https://up.htmlacademy.ru/javascript/18/user/805385).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Гусев](https://htmlacademy.ru/profile/id999795).
 
 ---
 
