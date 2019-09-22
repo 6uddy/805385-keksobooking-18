@@ -72,7 +72,7 @@ var GUESTS_MAX = 10;
  * @param {number} min - минимальное значение
  * @param {number} max - максимальное значение
  *
- * @returns {number} - случайное целое число из диапазона
+ * @return {number} - случайное целое число из диапазона
  */
 var getRandomIntBetween = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -81,8 +81,8 @@ var getRandomIntBetween = function (min, max) {
 /**
  * Сортирует случайным образом входной массива и возвращает его часть.
  *
- * @param array - входной массив
- * @returns {Array} - выходной массив
+ * @param {Array}  array - входной массив
+ * @return {Array} - выходной массив
  */
 var getRandomSubArray = function (array) {
   array.sort(function () {
@@ -94,8 +94,8 @@ var getRandomSubArray = function (array) {
 /**
  * Возвращает адрес аватара.
  *
- * @param id
- * @returns {string} - путь до аватара
+ * @param {number} id
+ * @return {string} - путь до аватара
  */
 var getAvatar = function (id) {
   return 'img/avatars/user0' + (id + 1) + '.png';
@@ -104,8 +104,9 @@ var getAvatar = function (id) {
 /**
  * Генерация моков.
  *
- * @param count - количество генерируемых карточек.
- * @returns {Array}
+ * @param {number} count - количество генерируемых карточек.
+ *
+ * @return {Array}
  */
 var generateCards = function (count) {
   var cards = [];
@@ -114,7 +115,7 @@ var generateCards = function (count) {
     var locationY = getRandomIntBetween(MAP_Y_MIN, MAP_Y_MAX);
     cards.push({
       author: {
-        avatar: getAvatar(i)
+        avatar: getAvatar(i),
       },
       offer: {
         title: CARD_TITLES[i],
@@ -127,12 +128,12 @@ var generateCards = function (count) {
         checkout: CHECKIN_TIME[getRandomIntBetween(0, CHECKIN_TIME.length - 1)],
         features: getRandomSubArray(CARD_FEATURES),
         description: CARD_DESCRIPTIONS[i],
-        photos: getRandomSubArray(CARD_PHOTOS)
+        photos: getRandomSubArray(CARD_PHOTOS),
       },
       location: {
         x: locationX,
-        y: locationY
-      }
+        y: locationY,
+      },
     });
   }
   return cards;
@@ -144,8 +145,6 @@ var pinTemplate = document.querySelector('#pin').content;
 
 /**
  * Переключить карту в активное состояние (временное решение).
- *
- * @returns {void}
  */
 var showMap = function () {
   var mapBlock = document.querySelector('.map');
@@ -155,8 +154,9 @@ var showMap = function () {
 /**
  * Создать элементы маркеров карты.
  *
- * @param card - данные карточки
- * @returns {Element} элемент маркера
+ * @param {object} card - данные
+ *
+ * @return {Element} элемент маркера
  */
 var createPin = function (card) {
   var pinElement = pinTemplate.cloneNode(true);
@@ -172,8 +172,6 @@ var createPin = function (card) {
 
 /**
  * Установка маркеров на карту.
- *
- * @returns {void}
  */
 var setPins = function () {
   var generatedCards = generateCards(CARDS_COUNT);
