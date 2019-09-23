@@ -205,6 +205,7 @@ var createCard = function (card) {
   mapCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
 
   var featuresElement = mapCard.querySelector('.popup__features');
+  // Костыль 1?
   featuresElement.innerHTML = '';
   for (var i = 0; i < card.offer.features.length; i++) {
     featuresElement.insertAdjacentHTML('afterbegin', '<li class="popup__feature popup__feature--' + card.offer.features[i] + '"></li>');
@@ -213,6 +214,7 @@ var createCard = function (card) {
   mapCard.querySelector('.popup__description').textContent = card.offer.description;
 
   var photosElement = mapCard.querySelector('.popup__photos');
+  // Костыль 2?
   photosElement.querySelector('.popup__photo').remove();
   for (i = 0; i < card.offer.photos.length; i++) {
     photosElement.insertAdjacentHTML('afterbegin', '<img class="popup__photo" src="' + card.offer.photos[i] + '" width="45" height="40">');
