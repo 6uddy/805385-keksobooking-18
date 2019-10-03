@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  window.mapPins = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content;
 
   /**
@@ -19,6 +20,7 @@
 
     pinIcon.querySelector('img').src = card.author.avatar;
     pinIcon.querySelector('img').alt = card.offer.title;
+    pinIcon.addEventListener('click', window.showCardPopupOnClickHandler);
     return pinIcon;
   };
 
@@ -27,10 +29,9 @@
    */
   window.setPins = function () {
     var fragmentPins = document.createDocumentFragment();
-    var mapPins = document.querySelector('.map__pins');
     for (var i = 0; i < window.cards.length; i++) {
       fragmentPins.appendChild(createPin(window.cards[i]));
     }
-    mapPins.appendChild(fragmentPins);
+    window.mapPins.appendChild(fragmentPins);
   };
 })();
