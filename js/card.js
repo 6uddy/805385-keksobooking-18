@@ -16,7 +16,7 @@
    * @param {object} card - данные
    * @return {Element} -элемент карточки
    */
-  var createCard = function (card) {
+  window.createCard = function (card) {
     var cardElement = cardTemplate.cloneNode(true);
     var mapCard = cardElement.querySelector('.map__card');
 
@@ -45,15 +45,31 @@
     return mapCard;
   };
 
-  /**
-   * Установка карточки маркера.
-   */
-  var setCard = function () {
-    var mapCard = document.querySelector('.map__filters-container');
-    var fragmentCard = document.createDocumentFragment();
-    fragmentCard.appendChild(createCard(window.cards[0]));
-    mapCard.before(fragmentCard);
+  var closeCardPopup = function () {
+    var pins = document.querySelector('.map__pins');
+    var articles = pins.querySelector('article');
+    if (articles) {
+      pins.removeChild(articles);
+    }
   };
-  // Для временного прохода eslint(пусть висит пока на странице)
-  setCard();
+
+  window.showCardPopupOnClickHandler = function (evt) {
+    var targetPinSrc = evt.target.src;
+    // Костыль для поиска id карточки в массиве данных из имени аватара
+    var num = targetPinSrc.charAt(targetPinSrc.length - 5) - 1;
+    var fragment = document.createDocumentFragment();
+    var pins = document.querySelector('.map__pins');
+    closeCardPopup();
+    fragment.appendChild(window.createCard(window.cards[num]));
+    pins.appendChild(fragment);
+    var closeButton = document.querySelector('.map__pins').querySelector('.popup__close');
+    closeButton.addEventListener('click', closeCardPopup);
+    closeButton.addEventListener('keydown', function (evtEnter) {
+      window.isEntered(evtEnter, closeCardPopup);
+    });
+    document.addEventListener('keydown', function (evtEsc) {
+      window.isEsced(evtEsc, closeCardPopup);
+    });
+  };
 })();
+
