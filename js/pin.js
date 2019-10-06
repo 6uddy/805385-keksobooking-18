@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+
+  var buttonId = 0;
+
   window.mapPins = document.querySelector('.map__pins');
   var pinTemplate = document.querySelector('#pin').content;
 
@@ -14,6 +17,8 @@
   var createPin = function (card) {
     var pinElement = pinTemplate.cloneNode(true);
     var pinIcon = pinElement.querySelector('.map__pin');
+    pinIcon.value = buttonId;
+    buttonId++;
 
     pinIcon.style.left = card.location.x + 'px';
     pinIcon.style.top = card.location.y + 'px';

@@ -54,9 +54,8 @@
   };
 
   window.showCardPopupOnClickHandler = function (evt) {
-    var targetPinSrc = evt.target.src;
-    // Костыль для поиска id карточки в массиве данных из имени аватара
-    var num = targetPinSrc.charAt(targetPinSrc.length - 5) - 1;
+    var targetPin = evt.target;
+    var num = targetPin.parentElement.value;
     var fragment = document.createDocumentFragment();
     var pins = document.querySelector('.map__pins');
     closeCardPopup();

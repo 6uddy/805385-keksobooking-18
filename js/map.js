@@ -12,9 +12,6 @@
   var MAIN_PIN_HEIGHT = 60;
   var MAIN_PIN_BOTTOM = 30;
 
-
-  window.cards = window.generateCards();
-
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
   var mapFilters = map.querySelectorAll('.map__filter');
