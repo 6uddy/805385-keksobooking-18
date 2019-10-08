@@ -33,7 +33,7 @@
     }
     window.setPins();
     window.activateNoticeForm();
-    setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
   };
 
   var isEntered = function (evt, action) {
@@ -44,7 +44,7 @@
 
   window.addEventListener('load', function () {
     window.noticeFormAddress.readOnly = true;
-    setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
   });
 
   mainPin.addEventListener('mousedown', mainPinActivateHandler);
@@ -75,17 +75,17 @@
       y: evt.clientY,
     };
 
-    var mouseMoveMainPinHandler = function (evt) {
-      evt.preventDefault();
+    var mouseMoveMainPinHandler = function (mouseMoveEvt) {
+      mouseMoveEvt.preventDefault();
 
       var shift = {
-        x: startPinLocation.x - evt.clientX,
-        y: startPinLocation.y - evt.clientY,
+        x: startPinLocation.x - mouseMoveEvt.clientX,
+        y: startPinLocation.y - mouseMoveEvt.clientY,
       };
 
       startPinLocation = {
-        x: evt.clientX,
-        y: evt.clientY,
+        x: mouseMoveEvt.clientX,
+        y: mouseMoveEvt.clientY,
       };
 
       window.mainPinLocation = {
@@ -111,8 +111,8 @@
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
     };
 
-    var mouseUpOnMainPinHandler = function (evt) {
-      evt.preventDefault();
+    var mouseUpOnMainPinHandler = function (evtUpEvt) {
+      evtUpEvt.preventDefault();
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
       document.removeEventListener('mousemove', mouseMoveMainPinHandler);
       document.removeEventListener('mouseup', mouseUpOnMainPinHandler);
