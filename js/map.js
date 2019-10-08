@@ -28,12 +28,12 @@
     }
     window.setPins();
     window.activateNoticeForm();
-    setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
   };
 
   window.addEventListener('load', function () {
     window.noticeFormAddress.readOnly = true;
-    setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
   });
 
   mainPin.addEventListener('mousedown', mainPinActivateHandler);
@@ -56,12 +56,12 @@
 
   mainPin.querySelector('img').setAttribute('draggable', 'true');
 
-  mainPin.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
+  mainPin.addEventListener('mousedown', function (mouseDownEvnt) {
+    mouseDownEvnt.preventDefault();
 
     var startPinLocation = {
-      x: evt.clientX,
-      y: evt.clientY,
+      x: mouseDownEvnt.clientX,
+      y: mouseDownEvnt.clientY,
     };
 
     var mouseMoveMainPinHandler = function (evt) {
@@ -100,8 +100,8 @@
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
     };
 
-    var mouseUpOnMainPinHandler = function (evt) {
-      evt.preventDefault();
+    var mouseUpOnMainPinHandler = function (mouseUpEvt) {
+      mouseUpEvt.preventDefault();
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
       document.removeEventListener('mousemove', mouseMoveMainPinHandler);
       document.removeEventListener('mouseup', mouseUpOnMainPinHandler);
