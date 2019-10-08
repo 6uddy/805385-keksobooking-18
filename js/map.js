@@ -1,7 +1,3 @@
-'use strict';
-
-(function () {
-
   window.MAP_X_MIN = 0;
   window.MAP_X_MAX = 1200;
 
@@ -120,4 +116,3 @@
     document.addEventListener('mousemove', mouseMoveMainPinHandler);
     document.addEventListener('mouseup', mouseUpOnMainPinHandler);
   });
-})();
