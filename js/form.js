@@ -12,11 +12,19 @@
   var noticeFormCheckout = window.noticeForm.querySelector('#timeout');
   var noticeFormRooms = window.noticeForm.querySelector('#room_number');
   var noticeFormCapacities = window.noticeForm.querySelector('#capacity');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   window.activateNoticeForm = function () {
     window.noticeForm.classList.remove('ad-form--disabled');
     for (var i = 0; i < noticeFormFields.length; i++) {
       noticeFormFields[i].removeAttribute('disabled');
+    }
+  };
+
+  window.deactivateNoticeForm = function () {
+    window.noticeForm.classList.add('ad-form--disabled');
+    for (var i = 0; i < noticeFormFields.length; i++) {
+      noticeFormFields[i].setAttribute('disabled', 'disabled');
     }
   };
 
@@ -110,5 +118,26 @@
   });
   noticeFormCheckout.addEventListener('change', function (evt) {
     noticeFormCheckin.value = evt.target.value;
+  });
+
+  resetButton.addEventListener('click', function () {
+    window.noticeForm.reset();
+    window.deactivateNoticeForm();
+    window.mapDeactivateHandler();
+    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+  });
+
+  var successHandler = function () {
+    window.noticeForm.reset();
+    window.deactivateNoticeForm();
+    window.mapDeactivateHandler();
+    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+    window.successShow();
+  };
+
+  window.noticeForm.addEventListener('submit', function (evt) {
+    window.noticeFormAddress.removeAttribute('disabled');
+    window.upload(new FormData(window.noticeForm), successHandler, window.errorHandler);
+    evt.preventDefault();
   });
 })();

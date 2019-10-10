@@ -39,4 +39,13 @@
     }
     window.mapPins.appendChild(fragmentPins);
   };
+
+  window.deletePins = function () {
+    var pins = window.mapPins.querySelectorAll('.map__pin');
+    for (var i = 0; i < pins.length; i++) {
+      if (!pins[i].classList.contains('map__pin--main')) {
+        pins[i].remove();
+      }
+    }
+  };
 })();

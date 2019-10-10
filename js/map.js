@@ -16,29 +16,42 @@
   var mainPin = map.querySelector('.map__pin--main');
   var mapFilters = map.querySelectorAll('.map__filter');
 
+  window.mainPinStartLocationLocation = {
+    x: 570,
+    y: 375,
+  };
+
   window.mainPinLocation = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop,
   };
 
-  var mainPinActivateHandler = function () {
+  window.mapDeactivateHandler = function () {
+    map.classList.add('map--faded');
+    for (var i = 0; i < mapFilters.length; i++) {
+      mapFilters[i].setAttribute('disabled', 'disabled');
+    }
+    window.deletePins();
+  };
+
+  window.mainPinActivateHandler = function () {
     map.classList.remove('map--faded');
     for (var i = 0; i < mapFilters.length; i++) {
       mapFilters[i].removeAttribute('disabled');
     }
     window.setPins();
     window.activateNoticeForm();
-    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   };
 
   window.addEventListener('load', function () {
     window.noticeFormAddress.readOnly = true;
-    window.setMainPinLocation(window.mainPinLocation.offsetLeft, window.mainPinLocation.offsetTop);
+    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   });
 
-  mainPin.addEventListener('mousedown', mainPinActivateHandler);
+  mainPin.addEventListener('mousedown', window.mainPinActivateHandler);
   mainPin.addEventListener('keydown', function (evt) {
-    window.isEntered(evt, mainPinActivateHandler);
+    window.isEntered(evt, window.mainPinActivateHandler);
   });
 
 
