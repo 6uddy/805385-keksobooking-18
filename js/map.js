@@ -64,17 +64,17 @@
       y: mouseDownEvnt.clientY,
     };
 
-    var mouseMoveMainPinHandler = function (evt) {
-      evt.preventDefault();
+    var mouseMoveMainPinHandler = function (mouseMoveEvt) {
+      mouseMoveEvt.preventDefault();
 
       var shift = {
-        x: startPinLocation.x - evt.clientX,
-        y: startPinLocation.y - evt.clientY,
+        x: startPinLocation.x - mouseMoveEvt.clientX,
+        y: startPinLocation.y - mouseMoveEvt.clientY,
       };
 
       startPinLocation = {
-        x: evt.clientX,
-        y: evt.clientY,
+        x: mouseMoveEvt.clientX,
+        y: mouseMoveEvt.clientY,
       };
 
       window.mainPinLocation = {
@@ -99,7 +99,7 @@
 
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
     };
-
+    
     var mouseUpOnMainPinHandler = function (mouseUpEvt) {
       mouseUpEvt.preventDefault();
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
