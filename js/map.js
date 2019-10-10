@@ -112,7 +112,7 @@
 
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
     };
-    
+
     var mouseUpOnMainPinHandler = function (mouseUpEvt) {
       mouseUpEvt.preventDefault();
       window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
