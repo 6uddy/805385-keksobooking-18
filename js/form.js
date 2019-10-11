@@ -124,6 +124,7 @@
     window.noticeForm.reset();
     window.deactivateNoticeForm();
     window.mapDeactivateHandler();
+    window.resetFilters();
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   });
 

@@ -17,6 +17,7 @@
 
   var onLoadDataHandler = function (data) {
     window.cards = data;
+    document.querySelector('.map__filters').addEventListener('click', window.filtrate(window.cards));
   };
 
   window.errorHandler = function (message) {

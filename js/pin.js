@@ -29,13 +29,10 @@
     return pinIcon;
   };
 
-  /**
-   * Установка маркеров на карту.
-   */
-  window.setPins = function () {
+  window.setPins = function (array) {
     var fragmentPins = document.createDocumentFragment();
-    for (var i = 0; i < window.cards.length; i++) {
-      fragmentPins.appendChild(createPin(window.cards[i]));
+    for (var i = 0; i < array.length; i++) {
+      fragmentPins.appendChild(createPin(array[i]));
     }
     window.mapPins.appendChild(fragmentPins);
   };
