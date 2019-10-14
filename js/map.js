@@ -32,6 +32,11 @@
       mapFilters[i].setAttribute('disabled', 'disabled');
     }
     window.deletePins();
+
+    var card = document.querySelector('.map__pins').querySelector('article');
+    if (card) {
+      card.remove();
+    }
   };
 
   window.mainPinActivateHandler = function () {

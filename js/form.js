@@ -125,6 +125,8 @@
     window.deactivateNoticeForm();
     window.mapDeactivateHandler();
     window.resetFilters();
+    document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
+    document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   });
 
@@ -132,6 +134,8 @@
     window.noticeForm.reset();
     window.deactivateNoticeForm();
     window.mapDeactivateHandler();
+    document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
+    document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
     window.successShow();
   };
