@@ -55,7 +55,7 @@
 
   window.showCardPopupOnClickHandler = function (evt) {
     var targetPin = evt.target;
-    var num = targetPin.parentElement.value;
+    var num = targetPin.firstChild ? targetPin.value : targetPin.parentElement.value;
     var fragment = document.createDocumentFragment();
     var pins = document.querySelector('.map__pins');
     closeCardPopup();
