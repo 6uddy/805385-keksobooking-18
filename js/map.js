@@ -40,7 +40,6 @@
   };
 
   window.mainPinActivateHandler = function () {
-    window.download
     map.classList.remove('map--faded');
     for (var i = 0; i < mapFilters.length; i++) {
       mapFilters[i].removeAttribute('disabled');
