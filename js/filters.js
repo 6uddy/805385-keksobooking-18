@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 500;
 
   var filterForm = document.querySelector('.map__filters');
   var Filters = {
@@ -9,7 +8,7 @@
     PRICE: filterForm.querySelector('#housing-price'),
     ROOMS: filterForm.querySelector('#housing-rooms'),
     CAPACITY: filterForm.querySelector('#housing-guests'),
-    FEATURES: filterForm.querySelector('#housing-features')
+    FEATURES: filterForm.querySelector('#housing-features'),
   };
 
   var enabledFilters = {
@@ -20,23 +19,14 @@
     features: []
   };
 
-  var lastTimeout;
-
-  var debounce = function (func) {
-    if (lastTimeout) {
-      window.clearTimeout(lastTimeout);
-    }
-    lastTimeout = window.setTimeout(func, DEBOUNCE_INTERVAL);
-  };
-
-  window.filtrate = function (array) {
+  var filtrate = function (array) {
     var changeTypeHandler = function (evt) {
       enabledFilters.type = evt.target.value;
       window.deletePins();
       var func = function () {
         window.setPins(toFiltrate());
       };
-      debounce(func);
+      window.utils.debounce(func);
     };
 
     var getPriceFilter = function (value, price) {
@@ -58,7 +48,7 @@
       var func = function () {
         window.setPins(toFiltrate());
       };
-      debounce(func);
+      window.utils.debounce(func);
     };
 
     var getRoomsFilter = function (value, rooms) {
@@ -80,7 +70,7 @@
       var func = function () {
         window.setPins(toFiltrate());
       };
-      debounce(func);
+      window.utils.debounce(func);
     };
 
     var getGuestsFilter = function (value, guests) {
@@ -100,7 +90,7 @@
       var func = function () {
         window.setPins(toFiltrate());
       };
-      debounce(func);
+      window.utils.debounce(func);
     };
 
     var getFeaturesFilter = function (value) {
@@ -131,7 +121,7 @@
       var func = function () {
         window.setPins(toFiltrate());
       };
-      debounce(func);
+      window.utils.debounce(func);
     };
 
     var toFiltrate = function () {
@@ -156,7 +146,7 @@
     Filters.CAPACITY.addEventListener('change', changeCapacityHandler);
   };
 
-  window.resetFilters = function () {
+  var reset = function () {
     Filters.TYPE.querySelector('option').selected = true;
     Filters.PRICE.querySelector('option').selected = true;
     Filters.ROOMS.querySelector('option').selected = true;
@@ -165,5 +155,10 @@
     for (var i = 0; i < checkboxes.length; i++) {
       checkboxes[i].checked = false;
     }
+  };
+
+  window.filters = {
+    filtrate: filtrate,
+    reset: reset,
   };
 })();

@@ -8,16 +8,8 @@
     bungalo: 'Бунгало',
   };
 
-  var cardTemplate = document.querySelector('#card').content;
-
-  /**
-   * Нарисовать карточку.
-   *
-   * @param {object} card - данные
-   * @return {Element} -элемент карточки
-   */
   window.createCard = function (card) {
-    var cardElement = cardTemplate.cloneNode(true);
+    var cardElement = document.querySelector('#card').content.cloneNode(true);
     var mapCard = cardElement.querySelector('.map__card');
 
     mapCard.querySelector('.popup__title').textContent = card.offer.title;
@@ -64,10 +56,10 @@
     var closeButton = document.querySelector('.map__pins').querySelector('.popup__close');
     closeButton.addEventListener('click', closeCardPopup);
     closeButton.addEventListener('keydown', function (evtEnter) {
-      window.isEntered(evtEnter, closeCardPopup);
+      window.utils.isEntered(evtEnter, closeCardPopup);
     });
     document.addEventListener('keydown', function (evtEsc) {
-      window.isEsced(evtEsc, closeCardPopup);
+      window.utils.isEscaped(evtEsc, closeCardPopup);
     });
   };
 })();

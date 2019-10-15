@@ -1,20 +1,10 @@
 'use strict';
 
 (function () {
-  window.buttonId = 0;
+  var mapPins = document.querySelector('.map__pins');
 
-  window.mapPins = document.querySelector('.map__pins');
-  var pinTemplate = document.querySelector('#pin').content;
-
-  /**
-   * Создать элементы маркеров карты.
-   *
-   * @param {object} card - данные
-   *
-   * @return {Element} элемент маркера
-   */
   var createPin = function (card) {
-    var pinElement = pinTemplate.cloneNode(true);
+    var pinElement = document.querySelector('#pin').content.cloneNode(true);
     var pinIcon = pinElement.querySelector('.map__pin');
     pinIcon.value = window.cards.indexOf(card);
 
@@ -32,11 +22,11 @@
     for (var i = 0; i < array.length; i++) {
       fragmentPins.appendChild(createPin(array[i]));
     }
-    window.mapPins.appendChild(fragmentPins);
+    mapPins.appendChild(fragmentPins);
   };
 
   window.deletePins = function () {
-    var pins = window.mapPins.querySelectorAll('.map__pin');
+    var pins = mapPins.querySelectorAll('.map__pin');
     for (var i = 0; i < pins.length; i++) {
       if (!pins[i].classList.contains('map__pin--main')) {
         pins[i].remove();

@@ -2,9 +2,6 @@
 
 (function () {
 
-  var errorTemplate = document.querySelector('#error').content;
-  var successTemplate = document.querySelector('#success').content;
-
   var loader = document.createElement('script');
   loader.src = 'https://js.dump.academy/keksobooking/data';
 
@@ -17,24 +14,30 @@
 
   var onLoadDataHandler = function (data) {
     window.cards = data;
-    document.querySelector('.map__filters').addEventListener('click', window.filtrate(window.cards));
+    document.querySelector('.map__filters').addEventListener('click', window.filters.filtrate(window.cards));
   };
 
   window.errorHandler = function (message) {
-    var errorElement = errorTemplate.cloneNode(true);
+    var errorElement = document.querySelector('#error').content.cloneNode(true);
     errorElement.querySelector('.error__message').textContent = message;
     document.querySelector('main').appendChild(errorElement);
   };
 
   window.successShow = function () {
-    var successElement = successTemplate.cloneNode(true);
+    var successElement = document.querySelector('#success').content.cloneNode(true);
     document.querySelector('main').appendChild(successElement);
-    document.addEventListener('click', function () {
-      document.querySelector('main').querySelector('.success').remove();
+    document.addEventListener('click', removeSuccess);
+
+    document.addEventListener('keydown', function (evtEsc) {
+      window.utils.isEscaped(evtEsc, removeSuccess);
     });
   };
 
-  var download = function (onLoad, onError) {
+  var removeSuccess = function () {
+    document.querySelector('main').querySelector('.success').remove();
+  };
+
+  window.download = function (onLoad, onError) {
     var URL = loader.src;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';

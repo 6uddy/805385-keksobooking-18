@@ -40,6 +40,7 @@
   };
 
   window.mainPinActivateHandler = function () {
+    window.download
     map.classList.remove('map--faded');
     for (var i = 0; i < mapFilters.length; i++) {
       mapFilters[i].removeAttribute('disabled');
@@ -61,7 +62,7 @@
 
   mainPin.addEventListener('mousedown', window.mainPinActivateHandler);
   mainPin.addEventListener('keydown', function (evt) {
-    window.isEntered(evt, window.mainPinActivateHandler);
+    window.utils.isEntered(evt, window.mainPinActivateHandler);
   });
 
 

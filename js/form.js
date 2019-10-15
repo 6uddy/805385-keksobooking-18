@@ -124,7 +124,7 @@
     window.noticeForm.reset();
     window.deactivateNoticeForm();
     window.mapDeactivateHandler();
-    window.resetFilters();
+    window.filters.reset();
     document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
     document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
@@ -134,6 +134,7 @@
     window.noticeForm.reset();
     window.deactivateNoticeForm();
     window.mapDeactivateHandler();
+    window.filters.reset();
     document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
     document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
