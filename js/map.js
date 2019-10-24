@@ -40,18 +40,22 @@
   };
 
   window.mainPinActivateHandler = function () {
-    map.classList.remove('map--faded');
-    for (var i = 0; i < mapFilters.length; i++) {
-      mapFilters[i].removeAttribute('disabled');
-    }
-    if (window.cards.length > 5) {
-      var copy = window.cards.slice(0, 5);
-      window.setPins(copy);
-    } else {
-      window.setPins(window.cards);
-    }
-    window.activateNoticeForm();
-    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+    window.backend.download(function (data) {
+      window.cards = data;
+      document.querySelector('.map__filters').addEventListener('click', window.filters.filtrate(window.cards));
+      map.classList.remove('map--faded');
+      for (var i = 0; i < mapFilters.length; i++) {
+        mapFilters[i].removeAttribute('disabled');
+      }
+      if (window.cards.length > 5) {
+        var copy = window.cards.slice(0, 5);
+        window.setPins(copy);
+      } else {
+        window.setPins(window.cards);
+      }
+      window.activateNoticeForm();
+      window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+    });
   };
 
   window.addEventListener('load', function () {

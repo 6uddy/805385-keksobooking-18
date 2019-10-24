@@ -23,27 +23,14 @@
     document.querySelector('main').appendChild(errorElement);
   };
 
-  window.successShow = function () {
-    var successElement = document.querySelector('#success').content.cloneNode(true);
-    document.querySelector('main').appendChild(successElement);
-    document.addEventListener('click', removeSuccess);
-
-    document.addEventListener('keydown', function (evtEsc) {
-      window.utils.isEscaped(evtEsc, removeSuccess);
-    });
-  };
-
-  var removeSuccess = function () {
-    document.querySelector('main').querySelector('.success').remove();
-  };
-
-  window.download = function (onLoad, onError) {
-    var URL = loader.src;
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.open('GET', URL);
-    xhr.send();
-    xhr.timeout = 10000;
+  window.backend = {
+    download: function (onLoad) {
+      var URL = loader.src;
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'json';
+      xhr.open('GET', URL);
+      xhr.send();
+      xhr.timeout = 10000;
 
     xhr.addEventListener('load', function () {
       var error;
@@ -72,11 +59,11 @@
       onError('Ошибка соединения');
     });
 
-    xhr.timeout = 10000;
-    xhr.addEventListener('timeout', function () {
-      onError('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
-    });
-  };
+      xhr.timeout = 10000;
+      xhr.addEventListener('timeout', function () {
+        errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
+      });
+    },
 
 
   window.upload = function (data, onLoad, onError) {
@@ -114,9 +101,10 @@
       onError('Ошибка соединения');
     });
 
-    xhr.timeout = 10000;
-    xhr.addEventListener('timeout', function () {
-      onError('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
-    });
+      xhr.timeout = 10000;
+      xhr.addEventListener('timeout', function () {
+        errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
+      });
+    },
   };
 })();

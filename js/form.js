@@ -130,6 +130,20 @@
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   });
 
+  var successShow = function () {
+    var successElement = document.querySelector('#success').content.cloneNode(true);
+    document.querySelector('main').appendChild(successElement);
+    document.addEventListener('click', removeSuccess);
+
+    document.addEventListener('keydown', function (evtEsc) {
+      window.utils.isEscaped(evtEsc, removeSuccess);
+    });
+  };
+
+  var removeSuccess = function () {
+    document.querySelector('main').querySelector('.success').remove();
+  };
+
   var successHandler = function () {
     window.noticeForm.reset();
     window.deactivateNoticeForm();
@@ -138,7 +152,7 @@
     document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
     document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
     window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
-    window.successShow();
+    successShow();
   };
 
   window.noticeForm.addEventListener('submit', function (evt) {
