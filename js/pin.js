@@ -17,7 +17,7 @@
     return pinIcon;
   };
 
-  window.setPins = function (array) {
+  var set = function (array) {
     var fragmentPins = document.createDocumentFragment();
     for (var i = 0; i < array.length; i++) {
       fragmentPins.appendChild(createPin(array[i]));
@@ -25,12 +25,17 @@
     mapPins.appendChild(fragmentPins);
   };
 
-  window.deletePins = function () {
+  var remove = function () {
     var pins = mapPins.querySelectorAll('.map__pin');
     for (var i = 0; i < pins.length; i++) {
       if (!pins[i].classList.contains('map__pin--main')) {
         pins[i].remove();
       }
     }
+  };
+
+  window.pins = {
+    set: set,
+    remove: remove
   };
 })();

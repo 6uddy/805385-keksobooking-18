@@ -22,9 +22,9 @@
   var filtrate = function (array) {
     var changeTypeHandler = function (evt) {
       enabledFilters.type = evt.target.value;
-      window.deletePins();
+      window.pins.remove();
       var func = function () {
-        window.setPins(toFiltrate());
+        window.pins.set(toFiltrate());
       };
       window.utils.debounce(func);
     };
@@ -44,9 +44,9 @@
 
     var changePriceHandler = function (evt) {
       enabledFilters.price = evt.target.value;
-      window.deletePins();
+      window.pins.remove();
       var func = function () {
-        window.setPins(toFiltrate());
+        window.pins.set(toFiltrate());
       };
       window.utils.debounce(func);
     };
@@ -66,9 +66,9 @@
 
     var changeRoomsHandler = function (evt) {
       enabledFilters.rooms = evt.target.value;
-      window.deletePins();
+      window.pins.remove();
       var func = function () {
-        window.setPins(toFiltrate());
+        window.pins.set(toFiltrate());
       };
       window.utils.debounce(func);
     };
@@ -86,9 +86,9 @@
 
     var changeCapacityHandler = function (evt) {
       enabledFilters.capacity = evt.target.value;
-      window.deletePins();
+      window.pins.remove();
       var func = function () {
-        window.setPins(toFiltrate());
+        window.pins.set(toFiltrate());
       };
       window.utils.debounce(func);
     };
@@ -119,9 +119,9 @@
           enabledFilters.features.splice(n, 1);
         }
       }
-      window.deletePins();
+      window.pins.remove();
       var func = function () {
-        window.setPins(toFiltrate());
+        window.pins.set(toFiltrate());
       };
       window.utils.debounce(func);
     };

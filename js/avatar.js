@@ -29,7 +29,6 @@
     previewAvatar(file);
   });
 
-  var uploadAvatar = function () {
     var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
 
     dropZone.addEventListener('dragover', function (evt) {
@@ -47,7 +46,4 @@
       var file = evt.dataTransfer.files[0];
       previewAvatar(file);
     });
-  };
-
-  uploadAvatar();
 })();

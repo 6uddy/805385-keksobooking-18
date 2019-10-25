@@ -31,8 +31,7 @@
     for (var i = 0; i < mapFilters.length; i++) {
       mapFilters[i].setAttribute('disabled', 'disabled');
     }
-    window.deletePins();
-
+    window.pins.remove();
     var card = document.querySelector('.map__pins').querySelector('article');
     if (card) {
       card.remove();
@@ -49,9 +48,9 @@
       }
       if (window.cards.length > 5) {
         var copy = window.cards.slice(0, 5);
-        window.setPins(copy);
+        window.pins.set(copy);
       } else {
-        window.setPins(window.cards);
+        window.pins.set(window.cards);
       }
       window.activateNoticeForm();
       window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
