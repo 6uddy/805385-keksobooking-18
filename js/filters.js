@@ -109,13 +109,15 @@
     };
 
     var checkFeatureHandler = function (evt) {
-      var target = evt.target;
-      var feature = target.value;
-      var n = enabledFilters.features.indexOf(feature);
-      if (target.checked) {
-        enabledFilters.features.push(feature);
-      } else {
-        enabledFilters.features.splice(n, 1);
+      if (evt.target.classList.contains('map__checkbox')) {
+        var target = evt.target;
+        var feature = target.value;
+        var n = enabledFilters.features.indexOf(feature);
+        if (target.checked) {
+          enabledFilters.features.push(feature);
+        } else {
+          enabledFilters.features.splice(n, 1);
+        }
       }
       window.deletePins();
       var func = function () {

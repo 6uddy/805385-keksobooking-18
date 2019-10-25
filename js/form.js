@@ -141,7 +141,10 @@
   };
 
   var removeSuccess = function () {
-    document.querySelector('main').querySelector('.success').remove();
+    var element = document.querySelector('main').querySelector('.success');
+    if (element) {
+      element.remove();
+    }
   };
 
   var successHandler = function () {
@@ -157,7 +160,7 @@
 
   window.noticeForm.addEventListener('submit', function (evt) {
     window.noticeFormAddress.removeAttribute('disabled');
-    window.upload(new FormData(window.noticeForm), successHandler, window.errorHandler);
+    window.backend.upload(new FormData(window.noticeForm), successHandler);
     evt.preventDefault();
   });
 })();
