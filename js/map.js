@@ -3,10 +3,11 @@
 (function () {
 
   window.MAP_X_MIN = 0;
-  window.MAP_X_MAX = 1200;
+  window.MAP_X_MAX = 1135;
 
-  window.MAP_Y_MIN = 130;
-  window.MAP_Y_MAX = 630;
+  window.MAP_Y_MIN = 5;
+  window.MAP_Y_MAX = 625;
+
 
   var MAIN_PIN_WIDTH = 60;
   var MAIN_PIN_HEIGHT = 60;
