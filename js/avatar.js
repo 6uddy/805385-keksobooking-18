@@ -5,6 +5,9 @@
 
   var fileChooser = document.querySelector('.ad-form-header__upload input[type=file]');
   var preview = document.querySelector('.ad-form-header__preview').querySelector('img');
+  var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
+
+  var defaultAvatarSrc = 'img/muffin-grey.svg';
 
   var previewAvatar = function (file) {
     var fileName = file.name.toLowerCase();
@@ -29,7 +32,6 @@
     previewAvatar(file);
   });
 
-  var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
 
   dropZone.addEventListener('dragover', function (evt) {
     evt.preventDefault();
@@ -46,4 +48,12 @@
     var file = evt.dataTransfer.files[0];
     previewAvatar(file);
   });
+
+  var clear = function () {
+    preview.src = defaultAvatarSrc;
+  };
+
+  window.avatar = {
+    clear: clear
+  };
 })();

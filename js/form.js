@@ -14,6 +14,7 @@
   var noticeFormCapacities = noticeForm.querySelector('#capacity');
   var resetButton = document.querySelector('.ad-form__reset');
 
+
   var activate = function () {
     noticeForm.classList.remove('ad-form--disabled');
     for (var i = 0; i < noticeFormFields.length; i++) {
@@ -125,6 +126,8 @@
     deactivate();
     window.map.deactivate();
     window.filters.reset();
+    window.avatar.clear();
+    window.photos.clear();
   });
 
   var successShow = function () {
@@ -148,6 +151,8 @@
     deactivate();
     window.map.deactivate();
     window.filters.reset();
+    window.avatar.clear();
+    window.photos.clear();
     successShow();
   };
 
@@ -155,6 +160,10 @@
     noticeFormAddress.removeAttribute('disabled');
     window.backend.upload(new FormData(noticeForm), successHandler);
     evt.preventDefault();
+  });
+
+  window.addEventListener('load', function () {
+    deactivate();
   });
 
   window.form = {

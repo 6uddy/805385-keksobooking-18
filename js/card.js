@@ -5,7 +5,7 @@
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
-    bungalo: 'Бунгало',
+    bungalo: 'Бунгало'
   };
 
   var create = function (card) {
@@ -64,7 +64,7 @@
   };
 
   window.card = {
-    showCardClickHandler: showCardClickHandler,
+    showCardClickHandler: showCardClickHandler
   };
 })();
 

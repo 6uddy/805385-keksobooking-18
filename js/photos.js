@@ -9,6 +9,7 @@
   photoChooser.setAttribute('multiple', 'true');
 
   var block = document.createElement('div');
+  block.classList.add("ad-form__image-container")
   container.appendChild(block);
   var fragment = document.createDocumentFragment();
 
@@ -56,4 +57,16 @@
     }
     block.appendChild(fragment);
   });
+
+
+  var clear = function () {
+    var element = container.querySelector('.ad-form__image-container');
+    if (element) {
+      element.remove();
+    }
+  };
+
+  window.photos = {
+    clear: clear
+  };
 })();
