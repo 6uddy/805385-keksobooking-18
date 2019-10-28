@@ -145,7 +145,7 @@
   };
 
   var successHandler = function () {
-   deactivate();
+    deactivate();
     window.map.deactivate();
     window.filters.reset();
     successShow();

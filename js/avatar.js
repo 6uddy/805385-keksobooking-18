@@ -29,21 +29,21 @@
     previewAvatar(file);
   });
 
-    var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
+  var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
 
-    dropZone.addEventListener('dragover', function (evt) {
-      evt.preventDefault();
-      return false;
-    });
+  dropZone.addEventListener('dragover', function (evt) {
+    evt.preventDefault();
+    return false;
+  });
 
-    dropZone.addEventListener('dragleave', function (evt) {
-      evt.preventDefault();
-      return false;
-    });
+  dropZone.addEventListener('dragleave', function (evt) {
+    evt.preventDefault();
+    return false;
+  });
 
-    dropZone.addEventListener('drop', function (evt) {
-      evt.preventDefault();
-      var file = evt.dataTransfer.files[0];
-      previewAvatar(file);
-    });
+  dropZone.addEventListener('drop', function (evt) {
+    evt.preventDefault();
+    var file = evt.dataTransfer.files[0];
+    previewAvatar(file);
+  });
 })();
