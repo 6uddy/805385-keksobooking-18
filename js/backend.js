@@ -2,6 +2,8 @@
 
 (function () {
 
+  var TIMEOUT = 10000;
+
   var loader = document.createElement('script');
   loader.src = 'https://js.dump.academy/keksobooking/data';
 
@@ -21,7 +23,7 @@
       xhr.responseType = 'json';
       xhr.open('GET', URL);
       xhr.send();
-      xhr.timeout = 10000;
+      xhr.timeout = TIMEOUT;
 
       xhr.addEventListener('load', function () {
         var error;
@@ -63,7 +65,7 @@
       xhr.responseType = 'json';
       xhr.open('POST', URL);
       xhr.send(data);
-      xhr.timeout = 10000;
+      xhr.timeout = TIMEOUT;
 
       xhr.addEventListener('load', function () {
         var error;
