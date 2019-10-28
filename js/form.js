@@ -1,28 +1,29 @@
 'use strict';
 
 (function () {
-  window.noticeForm = document.querySelector('.ad-form');
-  window.noticeFormAddress = window.noticeForm.querySelector('#address');
+  var noticeForm = document.querySelector('.ad-form');
+  var noticeFormAddress = noticeForm.querySelector('#address');
 
-  var noticeFormFields = window.noticeForm.querySelectorAll('fieldset');
-  var noticeFormTitle = window.noticeForm.querySelector('#title');
-  var noticeFormPrice = window.noticeForm.querySelector('#price');
-  var noticeFormType = window.noticeForm.querySelector('#type');
-  var noticeFormCheckin = window.noticeForm.querySelector('#timein');
-  var noticeFormCheckout = window.noticeForm.querySelector('#timeout');
-  var noticeFormRooms = window.noticeForm.querySelector('#room_number');
-  var noticeFormCapacities = window.noticeForm.querySelector('#capacity');
+  var noticeFormFields = noticeForm.querySelectorAll('fieldset');
+  var noticeFormTitle = noticeForm.querySelector('#title');
+  var noticeFormPrice = noticeForm.querySelector('#price');
+  var noticeFormType = noticeForm.querySelector('#type');
+  var noticeFormCheckin = noticeForm.querySelector('#timein');
+  var noticeFormCheckout = noticeForm.querySelector('#timeout');
+  var noticeFormRooms = noticeForm.querySelector('#room_number');
+  var noticeFormCapacities = noticeForm.querySelector('#capacity');
   var resetButton = document.querySelector('.ad-form__reset');
 
-  window.activateNoticeForm = function () {
-    window.noticeForm.classList.remove('ad-form--disabled');
+  var activate = function () {
+    noticeForm.classList.remove('ad-form--disabled');
     for (var i = 0; i < noticeFormFields.length; i++) {
       noticeFormFields[i].removeAttribute('disabled');
     }
   };
 
-  window.deactivateNoticeForm = function () {
-    window.noticeForm.classList.add('ad-form--disabled');
+  var deactivate = function () {
+    noticeForm.reset();
+    noticeForm.classList.add('ad-form--disabled');
     for (var i = 0; i < noticeFormFields.length; i++) {
       noticeFormFields[i].setAttribute('disabled', 'disabled');
     }
@@ -121,13 +122,9 @@
   });
 
   resetButton.addEventListener('click', function () {
-    window.noticeForm.reset();
-    window.deactivateNoticeForm();
-    window.mapDeactivateHandler();
+    deactivate();
+    window.map.deactivate();
     window.filters.reset();
-    document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
-    document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
-    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
   });
 
   var successShow = function () {
@@ -148,19 +145,19 @@
   };
 
   var successHandler = function () {
-    window.noticeForm.reset();
-    window.deactivateNoticeForm();
-    window.mapDeactivateHandler();
+   deactivate();
+    window.map.deactivate();
     window.filters.reset();
-    document.querySelector('.map__pin--main').style.left = window.mainPinStartLocationLocation.x + 'px';
-    document.querySelector('.map__pin--main').style.top = window.mainPinStartLocationLocation.y + 'px';
-    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
     successShow();
   };
 
-  window.noticeForm.addEventListener('submit', function (evt) {
-    window.noticeFormAddress.removeAttribute('disabled');
-    window.backend.upload(new FormData(window.noticeForm), successHandler);
+  noticeForm.addEventListener('submit', function (evt) {
+    noticeFormAddress.removeAttribute('disabled');
+    window.backend.upload(new FormData(noticeForm), successHandler);
     evt.preventDefault();
   });
+
+  window.form = {
+    activate: activate
+  };
 })();

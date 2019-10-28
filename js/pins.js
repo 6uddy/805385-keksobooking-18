@@ -13,7 +13,7 @@
 
     pinIcon.querySelector('img').src = card.author.avatar;
     pinIcon.querySelector('img').alt = card.offer.title;
-    pinIcon.addEventListener('click', window.showCardPopupOnClickHandler);
+    pinIcon.addEventListener('click', window.card.showCardClickHandler);
     return pinIcon;
   };
 

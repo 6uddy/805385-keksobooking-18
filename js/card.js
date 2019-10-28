@@ -8,7 +8,7 @@
     bungalo: 'Бунгало',
   };
 
-  window.createCard = function (card) {
+  var create = function (card) {
     var cardElement = document.querySelector('#card').content.cloneNode(true);
     var mapCard = cardElement.querySelector('.map__card');
 
@@ -45,13 +45,13 @@
     }
   };
 
-  window.showCardPopupOnClickHandler = function (evt) {
+  var showCardClickHandler = function (evt) {
     var targetPin = evt.target;
     var num = targetPin.firstChild ? targetPin.value : targetPin.parentElement.value;
     var fragment = document.createDocumentFragment();
     var pins = document.querySelector('.map__pins');
     closeCardPopup();
-    fragment.appendChild(window.createCard(window.cards[num]));
+    fragment.appendChild(create(window.cards[num]));
     pins.appendChild(fragment);
     var closeButton = document.querySelector('.map__pins').querySelector('.popup__close');
     closeButton.addEventListener('click', closeCardPopup);
@@ -61,6 +61,10 @@
     document.addEventListener('keydown', function (evtEsc) {
       window.utils.isEscaped(evtEsc, closeCardPopup);
     });
+  };
+
+  window.card = {
+    showCardClickHandler: showCardClickHandler,
   };
 })();
 

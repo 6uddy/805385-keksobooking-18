@@ -2,12 +2,11 @@
 
 (function () {
 
-  window.MAP_X_MIN = 0;
-  window.MAP_X_MAX = 1135;
+  var MAP_X_MIN = 0;
+  var MAP_X_MAX = 1135;
 
-  window.MAP_Y_MIN = 5;
-  window.MAP_Y_MAX = 625;
-
+  var MAP_Y_MIN = 5;
+  var MAP_Y_MAX = 625;
 
   var MAIN_PIN_WIDTH = 60;
   var MAIN_PIN_HEIGHT = 60;
@@ -17,17 +16,17 @@
   var mainPin = map.querySelector('.map__pin--main');
   var mapFilters = map.querySelectorAll('.map__filter');
 
-  window.mainPinStartLocationLocation = {
+  var mainPinStartLocationLocation = {
     x: 570,
     y: 375,
   };
 
-  window.mainPinLocation = {
+  var mainPinLocation = {
     x: mainPin.offsetLeft,
     y: mainPin.offsetTop,
   };
 
-  window.mapDeactivateHandler = function () {
+  var deactivate = function () {
     map.classList.add('map--faded');
     for (var i = 0; i < mapFilters.length; i++) {
       mapFilters[i].setAttribute('disabled', 'disabled');
@@ -37,9 +36,12 @@
     if (card) {
       card.remove();
     }
+    mainPin.style.left = mainPinStartLocationLocation.x + 'px';
+    mainPin.style.top = mainPinStartLocationLocation.y + 'px';
+    setMainPinLocation(mainPinStartLocationLocation.x, mainPinStartLocationLocation.y);
   };
 
-  window.mainPinActivateHandler = function () {
+  var mainPinActivateHandler = function () {
     window.backend.download(function (data) {
       window.cards = data;
       document.querySelector('.map__filters').addEventListener('click', window.filters.filtrate(window.cards));
@@ -53,31 +55,31 @@
       } else {
         window.pins.set(window.cards);
       }
-      window.activateNoticeForm();
-      window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+      window.form.activate();
+      setMainPinLocation(mainPinStartLocationLocation.x, mainPinStartLocationLocation.y);
     });
   };
 
   window.addEventListener('load', function () {
-    window.noticeFormAddress.readOnly = true;
-    window.setMainPinLocation(window.mainPinStartLocationLocation.x, window.mainPinStartLocationLocation.y);
+    document.querySelector('.ad-form').querySelector('#address').readOnly = true;
+    setMainPinLocation(mainPinStartLocationLocation.x, mainPinStartLocationLocation.y);
   });
 
-  mainPin.addEventListener('mousedown', window.mainPinActivateHandler);
+  mainPin.addEventListener('mousedown', mainPinActivateHandler);
   mainPin.addEventListener('keydown', function (evt) {
-    window.utils.isEntered(evt, window.mainPinActivateHandler);
+    window.utils.isEntered(evt, mainPinActivateHandler);
   });
 
 
-  window.setMainPinLocation = function (x, y) {
+  var setMainPinLocation = function (x, y) {
     var mainPinX = Math.floor(x + MAIN_PIN_WIDTH / 2);
-    if (window.noticeForm.classList.contains('ad-form--disabled')) {
+    if (document.querySelector('.ad-form').classList.contains('ad-form--disabled')) {
       mainPinY = Math.floor(y + MAIN_PIN_HEIGHT / 2);
     } else {
       var mainPinY = Math.floor(y + MAIN_PIN_HEIGHT + MAIN_PIN_BOTTOM);
     }
 
-    window.noticeFormAddress.value = mainPinX + ', ' + mainPinY;
+    document.querySelector('.ad-form').querySelector('#address').value = mainPinX + ', ' + mainPinY;
   };
 
   mainPin.querySelector('img').setAttribute('draggable', 'true');
@@ -103,36 +105,40 @@
         y: mouseMoveEvt.clientY,
       };
 
-      window.mainPinLocation = {
+      mainPinLocation = {
         x: mainPin.offsetLeft - shift.x,
         y: mainPin.offsetTop - shift.y,
       };
-      if (window.mainPinLocation.x > window.MAP_X_MAX) {
-        window.mainPinLocation.x = window.MAP_X_MAX;
+      if (mainPinLocation.x > MAP_X_MAX) {
+        mainPinLocation.x = MAP_X_MAX;
       }
-      if (window.mainPinLocation.x < window.MAP_X_MIN) {
-        window.mainPinLocation.x = window.MAP_X_MIN;
+      if (mainPinLocation.x < MAP_X_MIN) {
+        mainPinLocation.x = MAP_X_MIN;
       }
-      if (window.mainPinLocation.y > window.MAP_Y_MAX) {
-        window.mainPinLocation.y = window.MAP_Y_MAX;
+      if (mainPinLocation.y > MAP_Y_MAX) {
+        mainPinLocation.y = MAP_Y_MAX;
       }
-      if (window.mainPinLocation.y < window.MAP_Y_MIN) {
-        window.mainPinLocation.y = window.MAP_Y_MIN;
+      if (mainPinLocation.y < MAP_Y_MIN) {
+        mainPinLocation.y = MAP_Y_MIN;
       }
 
-      mainPin.style.left = window.mainPinLocation.x + 'px';
-      mainPin.style.top = window.mainPinLocation.y + 'px';
+      mainPin.style.left = mainPinLocation.x + 'px';
+      mainPin.style.top = mainPinLocation.y + 'px';
 
-      window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
+      setMainPinLocation(mainPinLocation.x, mainPinLocation.y);
     };
 
     var mouseUpOnMainPinHandler = function (mouseUpEvt) {
       mouseUpEvt.preventDefault();
-      window.setMainPinLocation(window.mainPinLocation.x, window.mainPinLocation.y);
+      setMainPinLocation(mainPinLocation.x, mainPinLocation.y);
       document.removeEventListener('mousemove', mouseMoveMainPinHandler);
       document.removeEventListener('mouseup', mouseUpOnMainPinHandler);
     };
     document.addEventListener('mousemove', mouseMoveMainPinHandler);
     document.addEventListener('mouseup', mouseUpOnMainPinHandler);
   });
+
+  window.map = {
+    deactivate: deactivate
+  };
 })();
