@@ -3,11 +3,11 @@
 (function () {
   var FILE_EXT = ['gif', 'jpg', 'jpeg', 'png'];
 
+  var DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
+
   var fileChooser = document.querySelector('.ad-form-header__upload input[type=file]');
   var preview = document.querySelector('.ad-form-header__preview').querySelector('img');
   var dropZone = document.querySelector('.ad-form-header__upload .ad-form-header__drop-zone');
-
-  var defaultAvatarSrc = 'img/muffin-grey.svg';
 
   var previewAvatar = function (file) {
     var fileName = file.name.toLowerCase();
@@ -50,7 +50,7 @@
   });
 
   var clear = function () {
-    preview.src = defaultAvatarSrc;
+    preview.src = DEFAULT_AVATAR_SRC;
   };
 
   window.avatar = {
