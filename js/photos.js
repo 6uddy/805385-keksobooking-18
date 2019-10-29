@@ -9,7 +9,7 @@
   photoChooser.setAttribute('multiple', 'true');
 
   var block = document.createElement('div');
-  block.classList.add("ad-form__image-container")
+  block.classList.add('ad-form__image-container');
   container.appendChild(block);
   var fragment = document.createDocumentFragment();
 
@@ -49,6 +49,7 @@
     evt.preventDefault();
     return false;
   });
+
   dropZone.addEventListener('drop', function (evt) {
     evt.preventDefault();
     var files = evt.dataTransfer.files;
