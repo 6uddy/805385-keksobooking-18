@@ -15,6 +15,7 @@
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
   var mapFilters = map.querySelectorAll('.map__filter');
+  var mapPins = document.querySelector('.map__pins');
 
   var mainPinStartLocationLocation = {
     x: 570,
@@ -32,7 +33,7 @@
       mapFilters[i].setAttribute('disabled', 'disabled');
     }
     window.pins.remove();
-    var card = document.querySelector('.map__pins').querySelector('article');
+    var card = mapPins.querySelector('article');
     if (card) {
       card.remove();
     }

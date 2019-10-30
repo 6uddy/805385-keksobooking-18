@@ -1,6 +1,21 @@
 'use strict';
 
 (function () {
+
+  var TITLE_MIN_LENGTH = 30;
+  var TITLE_MAX_LENGTH = 100;
+
+  var PRICE_MAX_VALUE = 1000000;
+
+  var MAX_PRICE = 1000000;
+
+  var BUNGALO_MIN_PRICE = 0;
+  var FLAT_MIN_PRICE = 1000;
+  var HOUSE_MIN_PRICE = 5000;
+  var PALACE_MIN_PRICE = 10000;
+
+  var successTemplate = document.querySelector('#success').content;
+
   var noticeForm = document.querySelector('.ad-form');
   var noticeFormAddress = noticeForm.querySelector('#address');
 
@@ -30,18 +45,12 @@
     }
   };
 
-  var TITLE_MIN_LENGTH = 30;
-  var TITLE_MAX_LENGTH = 100;
-
   noticeFormTitle.setAttribute('required', 'true');
   noticeFormTitle.setAttribute('minlength', TITLE_MIN_LENGTH);
   noticeFormTitle.setAttribute('maxlength', TITLE_MAX_LENGTH);
 
-  var PRICE_MAX_VALUE = 1000000;
-
   noticeFormPrice.setAttribute('required', 'true');
   noticeFormPrice.setAttribute('max', PRICE_MAX_VALUE);
-
 
   noticeFormCapacities.querySelectorAll('option')[2].setAttribute('selected', 'true');
 
@@ -78,13 +87,6 @@
   noticeFormRooms.addEventListener('change', roomsCapacitiesChangeHandler);
   noticeFormCapacities.addEventListener('change', roomsCapacitiesChangeHandler);
 
-
-  var MAX_PRICE = 1000000;
-
-  var BUNGALO_MIN_PRICE = 0;
-  var FLAT_MIN_PRICE = 1000;
-  var HOUSE_MIN_PRICE = 5000;
-  var PALACE_MIN_PRICE = 10000;
 
   var priceHandler = function () {
     if (noticeFormType.selectedIndex === 0) {
@@ -131,7 +133,7 @@
   });
 
   var successShow = function () {
-    var successElement = document.querySelector('#success').content.cloneNode(true);
+    var successElement = successTemplate.cloneNode(true);
     document.querySelector('main').appendChild(successElement);
     document.addEventListener('click', removeSuccess);
 

@@ -4,6 +4,8 @@
 
   var TIMEOUT = 10000;
 
+  var errorTemplate = document.querySelector('#error').content;
+
   var loader = document.createElement('script');
   loader.src = 'https://js.dump.academy/keksobooking/data';
 
@@ -11,7 +13,7 @@
   uploader.src = 'https://js.dump.academy/keksobooking';
 
   var errorHandler = function (message) {
-    var errorElement = document.querySelector('#error').content.cloneNode(true);
+    var errorElement = errorTemplate.cloneNode(true);
     errorElement.querySelector('.error__message').textContent = message;
     document.querySelector('main').appendChild(errorElement);
   };
@@ -52,7 +54,7 @@
         errorHandler('Ошибка соединения');
       });
 
-      xhr.timeout = 10000;
+      xhr.timeout = TIMEOUT;
       xhr.addEventListener('timeout', function () {
         errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
       });
@@ -94,10 +96,10 @@
         errorHandler('Ошибка соединения');
       });
 
-      xhr.timeout = 10000;
+      xhr.timeout = TIMEOUT;
       xhr.addEventListener('timeout', function () {
         errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
       });
-    },
+    }
   };
 })();

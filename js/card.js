@@ -6,10 +6,14 @@
     flat: 'Квартира',
     house: 'Дом',
     bungalo: 'Бунгало'
-  };
+};
+
+  var cardTemplate = document.querySelector('#card').content;
+
+  var mapPins = document.querySelector('.map__pins');
 
   var create = function (card) {
-    var cardElement = document.querySelector('#card').content.cloneNode(true);
+    var cardElement = cardTemplate.cloneNode(true);
     var mapCard = cardElement.querySelector('.map__card');
 
     mapCard.querySelector('.popup__title').textContent = card.offer.title;
@@ -38,22 +42,22 @@
   };
 
   var closeCardPopup = function () {
-    var pins = document.querySelector('.map__pins');
+    var pins = mapPins;
     var articles = pins.querySelector('article');
     if (articles) {
       pins.removeChild(articles);
     }
   };
 
-  var showCardClickHandler = function (evt) {
+  var showOnClickHandler = function (evt) {
     var targetPin = evt.target;
     var num = targetPin.firstChild ? targetPin.value : targetPin.parentElement.value;
     var fragment = document.createDocumentFragment();
-    var pins = document.querySelector('.map__pins');
+    var pins = mapPins;
     closeCardPopup();
     fragment.appendChild(create(window.cards[num]));
     pins.appendChild(fragment);
-    var closeButton = document.querySelector('.map__pins').querySelector('.popup__close');
+    var closeButton = mapPins.querySelector('.popup__close');
     closeButton.addEventListener('click', closeCardPopup);
     closeButton.addEventListener('keydown', function (evtEnter) {
       window.utils.isEntered(evtEnter, closeCardPopup);
@@ -64,7 +68,7 @@
   };
 
   window.card = {
-    showCardClickHandler: showCardClickHandler
+    showOnClickHandler: showOnClickHandler
   };
 })();
 
