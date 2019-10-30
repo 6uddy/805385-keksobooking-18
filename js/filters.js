@@ -154,9 +154,9 @@
     Filters.ROOMS.querySelector('option').selected = true;
     Filters.CAPACITY.querySelector('option').selected = true;
     var checkboxes = Filters.FEATURES.querySelectorAll('input');
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = false;
-    }
+    checkboxes.forEach(function (el) {
+      el.checked = false;
+    });
   };
 
   window.filters = {
