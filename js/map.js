@@ -3,14 +3,14 @@
 (function () {
 
   var MAP_X_MIN = 0;
-  var MAP_X_MAX = 1135;
+  var MAP_X_MAX = 1200;
 
   var MAP_Y_MIN = 130;
   var MAP_Y_MAX = 630;
 
   var MAIN_PIN_WIDTH = 60;
   var MAIN_PIN_HEIGHT = 60;
-  var MAIN_PIN_BOTTOM = 22;
+  var MAIN_PIN_BOTTOM = 20;
 
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
@@ -116,17 +116,17 @@
         x: mainPin.offsetLeft - shift.x,
         y: mainPin.offsetTop - shift.y,
       };
-      if (mainPinLocation.x > MAP_X_MAX) {
-        mainPinLocation.x = MAP_X_MAX;
+      if (mainPinLocation.x > MAP_X_MAX - MAIN_PIN_WIDTH / 2) {
+        mainPinLocation.x = MAP_X_MAX - MAIN_PIN_WIDTH / 2;
       }
-      if (mainPinLocation.x < MAP_X_MIN) {
-        mainPinLocation.x = MAP_X_MIN;
+      if (mainPinLocation.x < MAP_X_MIN - MAIN_PIN_WIDTH / 2) {
+        mainPinLocation.x = MAP_X_MIN - MAIN_PIN_WIDTH / 2;
       }
-      if (mainPinLocation.y > MAP_Y_MAX) {
-        mainPinLocation.y = MAP_Y_MAX;
+      if (mainPinLocation.y > MAP_Y_MAX - MAIN_PIN_HEIGHT - MAIN_PIN_BOTTOM) {
+        mainPinLocation.y = MAP_Y_MAX - MAIN_PIN_HEIGHT - MAIN_PIN_BOTTOM;
       }
-      if (mainPinLocation.y < MAP_Y_MIN) {
-        mainPinLocation.y = MAP_Y_MIN;
+      if (mainPinLocation.y < MAP_Y_MIN - MAIN_PIN_HEIGHT - MAIN_PIN_BOTTOM) {
+        mainPinLocation.y = MAP_Y_MIN - MAIN_PIN_HEIGHT - MAIN_PIN_BOTTOM;
       }
 
       mainPin.style.left = mainPinLocation.x + 'px';
