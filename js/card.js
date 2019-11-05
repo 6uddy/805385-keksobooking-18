@@ -68,7 +68,8 @@
   };
 
   window.card = {
-    showOnClickHandler: showOnClickHandler
+    showOnClickHandler: showOnClickHandler,
+    closeCardPopup: closeCardPopup
   };
 })();
 

@@ -23,6 +23,7 @@
     var changeTypeHandler = function (evt) {
       enabledFilters.type = evt.target.value;
       window.pins.remove();
+      window.card.closeCardPopup();
       var func = function () {
         window.pins.set(toFiltrate());
       };
@@ -45,6 +46,7 @@
     var changePriceHandler = function (evt) {
       enabledFilters.price = evt.target.value;
       window.pins.remove();
+      window.card.closeCardPopup();
       var func = function () {
         window.pins.set(toFiltrate());
       };
@@ -67,6 +69,7 @@
     var changeRoomsHandler = function (evt) {
       enabledFilters.rooms = evt.target.value;
       window.pins.remove();
+      window.card.closeCardPopup();
       var func = function () {
         window.pins.set(toFiltrate());
       };
@@ -87,6 +90,7 @@
     var changeCapacityHandler = function (evt) {
       enabledFilters.capacity = evt.target.value;
       window.pins.remove();
+      window.card.closeCardPopup();
       var func = function () {
         window.pins.set(toFiltrate());
       };
@@ -120,6 +124,7 @@
         }
       }
       window.pins.remove();
+      window.card.closeCardPopup();
       var func = function () {
         window.pins.set(toFiltrate());
       };
