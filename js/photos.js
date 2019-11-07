@@ -32,10 +32,9 @@
   };
 
   var photosChangeHandler = function () {
-    var files = photoChooser.files;
-    for (var i = 0; i < files.length; i++) {
-      fragment.appendChild(uploadPhoto(files[i]));
-    }
+    Array.prototype.forEach.call(photoChooser.files, function (el) {
+      fragment.appendChild(uploadPhoto(el));
+    });
     block.appendChild(fragment);
   };
   photoChooser.addEventListener('change', photosChangeHandler);
@@ -52,10 +51,9 @@
 
   dropZone.addEventListener('drop', function (evt) {
     evt.preventDefault();
-    var files = evt.dataTransfer.files;
-    for (var i = 0; i < files.length; i++) {
-      fragment.appendChild(uploadPhoto(files[i]));
-    }
+    Array.prototype.forEach.call(evt.dataTransfer.files, function (el) {
+      fragment.appendChild(uploadPhoto(el));
+    });
     block.appendChild(fragment);
   });
 
@@ -63,7 +61,7 @@
   var clear = function () {
     var element = container.querySelector('.ad-form__image-container');
     if (element) {
-      element.remove();
+      element.innerHTML = '';
     }
   };
 
