@@ -4,13 +4,10 @@
 
   var TIMEOUT = 10000;
 
+  var DOWNLOAD_URL = 'https://js.dump.academy/keksobooking/data';
+  var UPLOAD_URL = 'https://js.dump.academy/keksobooking';
+
   var errorTemplate = document.querySelector('#error').content;
-
-  var loader = document.createElement('script');
-  loader.src = 'https://js.dump.academy/keksobooking/data';
-
-  var uploader = document.createElement('script');
-  uploader.src = 'https://js.dump.academy/keksobooking';
 
   var errorHandler = function (message) {
     var errorElement = errorTemplate.cloneNode(true);
@@ -18,88 +15,55 @@
     document.querySelector('main').appendChild(errorElement);
   };
 
+  var requestHandler = function (onLoad, xhr) {
+    xhr.timeout = TIMEOUT;
+    xhr.addEventListener('load', function () {
+      var error;
+      switch (xhr.status) {
+        case 200:
+          onLoad(xhr.response);
+          break;
+        case 400:
+          error = 'Некорректный запрос';
+          break;
+        case 401:
+          error = 'Ошибка авторизации';
+          break;
+        case 404:
+          error = 'Ничего не найдено';
+          break;
+        default:
+          error = 'Ошибка: ' + xhr.status + ' ' + xhr.statusText;
+      }
+      if (error) {
+        errorHandler(error);
+      }
+    });
+
+    xhr.addEventListener('error', function () {
+      errorHandler('Ошибка соединения');
+    });
+
+    xhr.addEventListener('timeout', function () {
+      errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
+    });
+  }
+
   window.backend = {
     download: function (onLoad) {
-      var URL = loader.src;
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      xhr.open('GET', URL);
+      xhr.open('GET', DOWNLOAD_URL);
       xhr.send();
-      xhr.timeout = TIMEOUT;
-
-      xhr.addEventListener('load', function () {
-        var error;
-        switch (xhr.status) {
-          case 200:
-            onLoad(xhr.response);
-            break;
-          case 400:
-            error = 'Некорректный запрос';
-            break;
-          case 401:
-            error = 'Ошибка авторизации';
-            break;
-          case 404:
-            error = 'Ничего не найдено';
-            break;
-          default:
-            error = 'Ошибка: ' + xhr.status + ' ' + xhr.statusText;
-        }
-        if (error) {
-          errorHandler(error);
-        }
-      });
-
-      xhr.addEventListener('error', function () {
-        errorHandler('Ошибка соединения');
-      });
-
-      xhr.timeout = TIMEOUT;
-      xhr.addEventListener('timeout', function () {
-        errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
-      });
+      requestHandler(onLoad, xhr);
     },
 
-
     upload: function (data, onLoad) {
-      var URL = uploader.src;
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
-      xhr.open('POST', URL);
+      xhr.open('POST', UPLOAD_URL);
       xhr.send(data);
-      xhr.timeout = TIMEOUT;
-
-      xhr.addEventListener('load', function () {
-        var error;
-        switch (xhr.status) {
-          case 200:
-            onLoad(xhr.response);
-            break;
-          case 400:
-            error = 'Некорректный запрос';
-            break;
-          case 401:
-            error = 'Ошибка авторизации';
-            break;
-          case 404:
-            error = 'Ничего не найдено';
-            break;
-          default:
-            error = 'Ошибка: ' + xhr.status + ' ' + xhr.statusText;
-        }
-        if (error) {
-          errorHandler(error);
-        }
-      });
-
-      xhr.addEventListener('error', function () {
-        errorHandler('Ошибка соединения');
-      });
-
-      xhr.timeout = TIMEOUT;
-      xhr.addEventListener('timeout', function () {
-        errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
-      });
+      requestHandler(onLoad, xhr);
     }
   };
 })();
