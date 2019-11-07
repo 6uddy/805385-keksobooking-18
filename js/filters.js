@@ -2,6 +2,9 @@
 
 (function () {
 
+  var PRICE_MIDDLE = 10000;
+  var PRICE_HIGH = 50000;
+
   var filterForm = document.querySelector('.map__filters');
   var Filters = {
     TYPE: filterForm.querySelector('#housing-type'),
@@ -33,11 +36,11 @@
     var getPriceFilter = function (value, price) {
       switch (value) {
         case 'low':
-          return (price < 10000);
+          return (price < PRICE_MIDDLE);
         case 'middle':
-          return ((price >= 10000) && (price <= 50000));
+          return ((price >= PRICE_MIDDLE) && (price <= PRICE_HIGH));
         case 'high':
-          return (price > 50000);
+          return (price > PRICE_HIGH);
         default:
           return true;
       }
@@ -103,11 +106,11 @@
       } else {
         var count = 0;
         var offerFeatures = value.offer.features;
-        for (var i = 0; i < enabledFilters.features.length; i++) {
-          if (offerFeatures.indexOf(enabledFilters.features[i]) >= 0) {
+        enabledFilters.features.forEach(function (el) {
+          if (offerFeatures.indexOf(el) >= 0) {
             count++;
           }
-        }
+        });
         return (count === enabledFilters.features.length);
       }
     };
@@ -154,14 +157,7 @@
   };
 
   var reset = function () {
-    Filters.TYPE.querySelector('option').selected = true;
-    Filters.PRICE.querySelector('option').selected = true;
-    Filters.ROOMS.querySelector('option').selected = true;
-    Filters.CAPACITY.querySelector('option').selected = true;
-    var checkboxes = Filters.FEATURES.querySelectorAll('input');
-    checkboxes.forEach(function (el) {
-      el.checked = false;
-    });
+    filterForm.reset();
   };
 
   window.filters = {

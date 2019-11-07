@@ -11,6 +11,7 @@
   var MAIN_PIN_WIDTH = 60;
   var MAIN_PIN_HEIGHT = 60;
   var MAIN_PIN_BOTTOM = 20;
+  var MAX_FILTER_RESULTS = 5;
 
   var map = document.querySelector('.map');
   var mainPin = map.querySelector('.map__pin--main');
@@ -29,9 +30,9 @@
 
   var deactivate = function () {
     map.classList.add('map--faded');
-    for (var i = 0; i < mapFilters.length; i++) {
-      mapFilters[i].setAttribute('disabled', 'disabled');
-    }
+    mapFilters.forEach(function (el) {
+      el.setAttribute('disabled', 'disabled');
+    });
     window.pins.remove();
     var card = mapPins.querySelector('article');
     if (card) {
@@ -54,11 +55,11 @@
 
   var mainPinActivateHandler = function () {
     map.classList.remove('map--faded');
-    for (var i = 0; i < mapFilters.length; i++) {
-      mapFilters[i].removeAttribute('disabled');
-    }
-    if (window.cards.length > 5) {
-      var copy = window.cards.slice(0, 5);
+    mapFilters.forEach(function (el) {
+      el.removeAttribute('disabled');
+    });
+    if (window.cards.length > MAX_FILTER_RESULTS) {
+      var copy = window.cards.slice(0, MAX_FILTER_RESULTS);
       window.pins.set(copy);
     } else {
       window.pins.set(window.cards);

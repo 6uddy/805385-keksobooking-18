@@ -6,7 +6,7 @@
     flat: 'Квартира',
     house: 'Дом',
     bungalo: 'Бунгало'
-};
+  };
 
   var cardTemplate = document.querySelector('#card').content;
 
@@ -25,17 +25,18 @@
 
     var featuresElement = mapCard.querySelector('.popup__features');
     featuresElement.innerHTML = '';
-    for (var i = 0; i < card.offer.features.length; i++) {
-      featuresElement.insertAdjacentHTML('afterbegin', '<li class="popup__feature popup__feature--' + card.offer.features[i] + '"></li>');
-    }
+    card.offer.features.forEach(function (el) {
+      featuresElement.insertAdjacentHTML('afterbegin', '<li class="popup__feature popup__feature--' + el + '"></li>');
+    });
 
     mapCard.querySelector('.popup__description').textContent = card.offer.description;
 
     var photosElement = mapCard.querySelector('.popup__photos');
     photosElement.querySelector('.popup__photo').remove();
-    for (i = 0; i < card.offer.photos.length; i++) {
-      photosElement.insertAdjacentHTML('afterbegin', '<img class="popup__photo" src="' + card.offer.photos[i] + '" width="45" height="40">');
-    }
+
+    card.offer.photos.forEach(function (el) {
+      photosElement.insertAdjacentHTML('afterbegin', '<img class="popup__photo" src="' + el + '" width="45" height="40">');
+    });
 
     mapCard.querySelector('.popup__avatar').src = card.author.avatar;
     return mapCard;

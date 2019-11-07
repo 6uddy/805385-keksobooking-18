@@ -22,19 +22,19 @@
 
   var set = function (array) {
     var fragmentPins = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragmentPins.appendChild(createPin(array[i]));
-    }
+    array.forEach(function (el) {
+      fragmentPins.appendChild(createPin(el));
+    });
     mapPins.appendChild(fragmentPins);
   };
 
   var remove = function () {
     var pins = mapPins.querySelectorAll('.map__pin');
-    for (var i = 0; i < pins.length; i++) {
-      if (!pins[i].classList.contains('map__pin--main')) {
-        pins[i].remove();
+    pins.forEach(function (el) {
+      if (!el.classList.contains('map__pin--main')) {
+        el.remove();
       }
-    }
+    });
   };
 
   window.pins = {

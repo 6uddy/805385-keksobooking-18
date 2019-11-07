@@ -47,7 +47,7 @@
     xhr.addEventListener('timeout', function () {
       errorHandler('Ошибка ответа от сервера ' + xhr.timeout / 1000 + ' с');
     });
-  }
+  };
 
   window.backend = {
     download: function (onLoad) {

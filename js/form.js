@@ -13,6 +13,8 @@
   var FLAT_MIN_PRICE = 1000;
   var HOUSE_MIN_PRICE = 5000;
   var PALACE_MIN_PRICE = 10000;
+  var MIN_ROOMS = 0;
+  var MAX_ROOMS = 100;
 
   var successTemplate = document.querySelector('#success').content;
 
@@ -32,17 +34,17 @@
 
   var activate = function () {
     noticeForm.classList.remove('ad-form--disabled');
-    for (var i = 0; i < noticeFormFields.length; i++) {
-      noticeFormFields[i].removeAttribute('disabled');
-    }
+    noticeFormFields.forEach(function (el) {
+      el.removeAttribute('disabled');
+    });
   };
 
   var deactivate = function () {
     noticeForm.reset();
     noticeForm.classList.add('ad-form--disabled');
-    for (var i = 0; i < noticeFormFields.length; i++) {
-      noticeFormFields[i].setAttribute('disabled', 'disabled');
-    }
+    noticeFormFields.forEach(function (el) {
+      el.setAttribute('disabled', 'disabled');
+    });
   };
 
   noticeFormTitle.setAttribute('required', 'true');
@@ -55,12 +57,12 @@
   noticeFormCapacities.querySelectorAll('option')[2].setAttribute('selected', 'true');
 
   var noGuestsCheck = function () {
-    if (Number(noticeFormCapacities.value) === 0 && Number(noticeFormRooms.value) !== 100) {
+    if (Number(noticeFormCapacities.value) === MIN_ROOMS && Number(noticeFormRooms.value) !== MAX_ROOMS) {
       noticeFormCapacities.setCustomValidity('Данное значение доступен только для 100 комнат');
     } else {
       noticeFormCapacities.setCustomValidity('');
     }
-    if (Number(noticeFormRooms.value) === 100 && Number(noticeFormCapacities.value) !== 0) {
+    if (Number(noticeFormRooms.value) === MAX_ROOMS && Number(noticeFormCapacities.value) !== MIN_ROOMS) {
       noticeFormRooms.setCustomValidity('Данное количество комнат предназначего не для гостей');
     } else {
       noticeFormRooms.setCustomValidity('');
@@ -77,7 +79,7 @@
   };
 
   var roomsCapacitiesChangeHandler = function () {
-    if (Number(noticeFormRooms.value) === 100 || Number(noticeFormCapacities.value) === 0) {
+    if (Number(noticeFormRooms.value) === MAX_ROOMS || Number(noticeFormCapacities.value) === MIN_ROOMS) {
       noGuestsCheck();
     } else {
       capacityCheck();
@@ -89,17 +91,19 @@
 
 
   var priceHandler = function () {
-    if (noticeFormType.selectedIndex === 0) {
-      noticeFormPrice.setAttribute('min', BUNGALO_MIN_PRICE);
-    }
-    if (noticeFormType.selectedIndex === 1) {
-      noticeFormPrice.setAttribute('min', FLAT_MIN_PRICE);
-    }
-    if (noticeFormType.selectedIndex === 2) {
-      noticeFormPrice.setAttribute('min', HOUSE_MIN_PRICE);
-    }
-    if (noticeFormType.selectedIndex === 3) {
-      noticeFormPrice.setAttribute('min', PALACE_MIN_PRICE);
+    switch (noticeFormType.value) {
+      case 'flat':
+        noticeFormPrice.setAttribute('min', FLAT_MIN_PRICE);
+        break;
+      case 'house':
+        noticeFormPrice.setAttribute('min', HOUSE_MIN_PRICE);
+        break;
+      case 'palace':
+        noticeFormPrice.setAttribute('min', PALACE_MIN_PRICE);
+        break;
+      case 'bungalo':
+        noticeFormPrice.setAttribute('min', BUNGALO_MIN_PRICE);
+        break;
     }
   };
 
