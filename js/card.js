@@ -50,7 +50,7 @@
     }
   };
 
-  var showOnClickHandler = function (evt) {
+  var showOnClick = function (evt) {
     var targetPin = evt.target;
     var num = targetPin.firstChild ? targetPin.value : targetPin.parentElement.value;
     var fragment = document.createDocumentFragment();
@@ -69,8 +69,8 @@
   };
 
   window.card = {
-    showOnClickHandler: showOnClickHandler,
-    closeCardPopup: closeCardPopup
+    showOnClick: showOnClick,
+    closePopup: closeCardPopup
   };
 })();
 

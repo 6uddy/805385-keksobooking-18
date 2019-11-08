@@ -41,6 +41,7 @@
     mainPin.style.left = mainPinStartLocationLocation.x + 'px';
     mainPin.style.top = mainPinStartLocationLocation.y + 'px';
     setMainPinLocation(mainPinStartLocationLocation.x, mainPinStartLocationLocation.y);
+    mainPin.addEventListener('mousedown', mainPinActivateHandler);
   };
 
   window.addEventListener('load', function () {
@@ -66,6 +67,7 @@
     }
     window.form.activate();
     setMainPinLocation(mainPinStartLocationLocation.x, mainPinStartLocationLocation.y);
+    mainPin.removeEventListener('mousedown', mainPinActivateHandler);
   };
 
   window.addEventListener('load', function () {
@@ -74,7 +76,8 @@
   });
 
   mainPin.addEventListener('mousedown', mainPinActivateHandler);
-  mainPin.addEventListener('keydown', function (evt) {
+  mainPin.addEventListener(
+    'keydown', function (evt) {
     window.utils.isEntered(evt, mainPinActivateHandler);
   });
 

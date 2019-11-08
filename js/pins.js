@@ -16,7 +16,7 @@
 
     pinIcon.querySelector('img').src = card.author.avatar;
     pinIcon.querySelector('img').alt = card.offer.title;
-    pinIcon.addEventListener('click', window.card.showOnClickHandler);
+    pinIcon.addEventListener('click', window.card.showOnClick);
     return pinIcon;
   };
 
