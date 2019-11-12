@@ -86,7 +86,7 @@
 
   var setMainPinLocation = function (x, y) {
     var mainPinX = Math.floor(x + MAIN_PIN_WIDTH / 2);
-    if (document.querySelector('.ad-form').classList.contains('ad-form--disabled')) {
+    if (noticeForm.classList.contains('ad-form--disabled')) {
       mainPinY = Math.floor(y + MAIN_PIN_HEIGHT / 2);
     } else {
       var mainPinY = Math.floor(y + MAIN_PIN_HEIGHT + MAIN_PIN_BOTTOM);
