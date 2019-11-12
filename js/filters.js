@@ -44,7 +44,7 @@
       var priceValue = Filters.PRICE.value;
 
       var isTypeCompared = typeValue === 'any' ? true : value.offer.type === typeValue;
-      var isRoomsCompared = roomsValue === 'any' ? true :  value.offer.rooms === +roomsValue;
+      var isRoomsCompared = roomsValue === 'any' ? true : value.offer.rooms === +roomsValue;
       var isCapacityCompared = capacityValue === 'any' ? true : value.offer.capacity === +capacityValue;
       var isPriceCompared = priceValue === 'any' ? true : getPriceFilter(priceValue, value.offer.price);
       var isFeaturesMatched = getFeaturesFilter(value.offer.features);
