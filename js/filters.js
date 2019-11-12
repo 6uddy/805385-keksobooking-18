@@ -2,6 +2,8 @@
 
 (function () {
 
+  var MAX_FILTER_RESULTS = 5;
+
   var PRICE_MIDDLE = 10000;
   var PRICE_HIGH = 50000;
 
@@ -12,24 +14,6 @@
     ROOMS: filterForm.querySelector('#housing-rooms'),
     CAPACITY: filterForm.querySelector('#housing-guests'),
     FEATURES: filterForm.querySelector('#housing-features'),
-  };
-
-  var enabledFilters = {
-    type: 'any',
-    price: 'any',
-    rooms: 'any',
-    capacity: 'any',
-    features: []
-  };
-
-  var changeTypeHandler = function (evt) {
-    enabledFilters.type = evt.target.value;
-    window.pins.remove();
-    window.card.closePopup();
-    var func = function () {
-      window.pins.set(filtrate());
-    };
-    window.utils.debounce(func);
   };
 
   var getPriceFilter = function (value, price) {
@@ -45,93 +29,39 @@
     }
   };
 
-  var changePriceHandler = function (evt) {
-    enabledFilters.price = evt.target.value;
-    window.pins.remove();
-    window.card.closePopup();
-    var func = function () {
-      window.pins.set(filtrate());
-    };
-    window.utils.debounce(func);
-  };
-
-  var getRoomsFilter = function (value, rooms) {
-    return rooms === +value;
-  };
-
-  var changeRoomsHandler = function (evt) {
-    enabledFilters.rooms = evt.target.value;
-    window.pins.remove();
-    window.card.closePopup();
-    var func = function () {
-      window.pins.set(filtrate());
-    };
-    window.utils.debounce(func);
-  };
-
-  var getGuestsFilter = function (value, guests) {
-    return guests === +value;
-  };
-
-  var changeCapacityHandler = function (evt) {
-    enabledFilters.capacity = evt.target.value;
-    window.pins.remove();
-    window.card.closePopup();
-    var func = function () {
-      window.pins.set(filtrate());
-    };
-    window.utils.debounce(func);
-  };
-
-  var getFeaturesFilter = function (value) {
-    if (enabledFilters.features.length === 0) {
-      return true;
-    } else {
-      var count = 0;
-      var offerFeatures = value.offer.features;
-      enabledFilters.features.forEach(function (el) {
-        if (offerFeatures.indexOf(el) >= 0) {
-          count++;
-        }
-      });
-      return (count === enabledFilters.features.length);
-    }
-  };
-
-  var checkFeatureHandler = function () {
-    enabledFilters.features = [];
-    var checkedFilters = filterForm.querySelectorAll('.map__checkbox:checked');
-    checkedFilters.forEach(function (el) {
-      enabledFilters.features.push(el.value);
+  var getFeaturesFilter = function (features) {
+    var checkedFeatures = Array.from(filterForm.querySelectorAll('.map__checkbox:checked'));
+    return Array.prototype.slice.call(checkedFeatures).every(function (item) {
+      return features.indexOf(item.value) >= 0;
     });
-    window.pins.remove();
-    window.card.closePopup();
-    var func = function () {
-      window.pins.set(filtrate());
-    };
-    window.utils.debounce(func);
   };
 
   var filtrate = function () {
-    window.results = window.cards.filter(function (value) {
-      var result = (((enabledFilters.type === 'any') || (value.offer.type === enabledFilters.type)) &&
-        ((enabledFilters.price === 'any') || (getPriceFilter(enabledFilters.price, value.offer.price))) &&
-        ((enabledFilters.rooms === 'any') || (getRoomsFilter(enabledFilters.rooms, value.offer.rooms))) &&
-        ((enabledFilters.capacity === 'any') || (getGuestsFilter(enabledFilters.capacity, value.offer.guests)))) &&
-        ((enabledFilters.features === []) || (getFeaturesFilter(value)));
-      return result;
-    });
-    if (window.results.length > 5) {
-      window.results.length = 5;
-    }
-    return window.results;
+    return window.cards.filter(function (value) {
+      var typeValue = Filters.TYPE.value;
+      var roomsValue = Filters.ROOMS.value;
+      var capacityValue = Filters.CAPACITY.value;
+      var priceValue = Filters.PRICE.value;
+
+      var isTypeCompared = typeValue === 'any' ? true : value.offer.type === typeValue;
+      var isRoomsCompared = roomsValue === 'any' ? true :  value.offer.rooms === +roomsValue;
+      var isCapacityCompared = capacityValue === 'any' ? true : value.offer.capacity === +capacityValue;
+      var isPriceCompared = priceValue === 'any' ? true : getPriceFilter(priceValue, value.offer.price);
+      var isFeaturesMatched = getFeaturesFilter(value.offer.features);
+      return isTypeCompared && isRoomsCompared && isCapacityCompared && isPriceCompared && isFeaturesMatched;
+    }).slice(0, MAX_FILTER_RESULTS);
   };
 
-  Filters.FEATURES.addEventListener('change', checkFeatureHandler);
-  Filters.TYPE.addEventListener('change', changeTypeHandler);
-  Filters.PRICE.addEventListener('change', changePriceHandler);
-  Filters.ROOMS.addEventListener('change', changeRoomsHandler);
-  Filters.CAPACITY.addEventListener('change', changeCapacityHandler);
+  var handleFormChange = function () {
+    window.pins.remove();
+    window.card.closePopup();
+    var func = function () {
+      window.pins.set(filtrate());
+    };
+    window.utils.debounce(func);
+  };
+
+  filterForm.addEventListener('change', handleFormChange);
 
   var reset = function () {
     filterForm.reset();
