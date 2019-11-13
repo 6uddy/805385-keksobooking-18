@@ -45,7 +45,7 @@
 
       var isTypeCompared = typeValue === 'any' ? true : value.offer.type === typeValue;
       var isRoomsCompared = roomsValue === 'any' ? true : value.offer.rooms === +roomsValue;
-      var isCapacityCompared = capacityValue === 'any' ? true : value.offer.capacity === +capacityValue;
+      var isCapacityCompared = capacityValue === 'any' ? true : value.offer.guests === +capacityValue;
       var isPriceCompared = priceValue === 'any' ? true : getPriceFilter(priceValue, value.offer.price);
       var isFeaturesMatched = getFeaturesFilter(value.offer.features);
       return isTypeCompared && isRoomsCompared && isCapacityCompared && isPriceCompared && isFeaturesMatched;
